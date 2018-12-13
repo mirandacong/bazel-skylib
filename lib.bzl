@@ -27,11 +27,11 @@ load("//lib:types.bzl", _types = "types")
 load("//lib:unittest.bzl", _asserts = "asserts", _unittest = "unittest")
 load("//lib:versions.bzl", _versions = "versions")
 
-print(
-    "WARNING: lib.bzl is deprecated and will go away in the future, please" +
-    " directly load the bzl file(s) of the module(s) needed as it is more" +
-    " efficient.",
-)
+#print(
+    #"WARNING: lib.bzl is deprecated and will go away in the future, please" +
+    #" directly load the bzl file(s) of the module(s) needed as it is more" +
+    #" efficient.",
+#)
 
 collections = _collections
 dicts = _dicts
