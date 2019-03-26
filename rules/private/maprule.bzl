@@ -12,10 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Dependency registration helpers for repositories which need to load bazel-skylib."""
+"""Maprule implementation in Starlark.
 
-load("@bazel_skylib//lib:unittest.bzl", "register_unittest_toolchains")
+This module exports the cmd_maprule() and bash_maprule() build rules.
 
-def bazel_skylib_workspace():
-    """Registers toolchains and declares repository dependencies of the bazel_skylib repository."""
-    register_unittest_toolchains()
+They are the same except for the interpreter they use (cmd.exe and Bash respectively) and for the
+expected language of their `cmd` attribute.
+
+You can read more about these rules in "maprule_private.bzl".
+"""
+
+load(":maprule_private.bzl", _bash_maprule = "bash_maprule", _cmd_maprule = "cmd_maprule")
+
+cmd_maprule = _cmd_maprule
+bash_maprule = _bash_maprule

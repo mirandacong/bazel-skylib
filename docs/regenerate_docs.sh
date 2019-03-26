@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Copyright 2019 The Bazel Authors. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,11 +13,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
+# A script to manually regenerate the documentation contained in the docs/ directory.
+# Should be run from the WORKSPACE root.
 
-"""Dependency registration helpers for repositories which need to load bazel-skylib."""
+set -euo pipefail
 
-load("@bazel_skylib//lib:unittest.bzl", "register_unittest_toolchains")
+bazel build docs:all --experimental_remap_main_repo
 
-def bazel_skylib_workspace():
-    """Registers toolchains and declares repository dependencies of the bazel_skylib repository."""
-    register_unittest_toolchains()
+for filename in bazel-bin/docs/*_gen.md; do
+    target_filename="$(echo $filename | sed -En "s/bazel-bin\/(.*)_gen.md/\1/p").md"
+    cp $filename $target_filename
+done

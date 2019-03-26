@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Copyright 2019 The Bazel Authors. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Dependency registration helpers for repositories which need to load bazel-skylib."""
+set -euo pipefail
 
-load("@bazel_skylib//lib:unittest.bzl", "register_unittest_toolchains")
-
-def bazel_skylib_workspace():
-    """Registers toolchains and declares repository dependencies of the bazel_skylib repository."""
-    register_unittest_toolchains()
+echo "$MAPRULE_SRCS" "$MAPRULE_SRC" > "$MAPRULE_OUT1"
+cat "$MAPRULE_SRCS" "$MAPRULE_SRC" > "$MAPRULE_OUT2"

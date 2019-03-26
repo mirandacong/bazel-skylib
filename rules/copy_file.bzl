@@ -12,10 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Dependency registration helpers for repositories which need to load bazel-skylib."""
+"""A rule that copies a file to another place.
 
-load("@bazel_skylib//lib:unittest.bzl", "register_unittest_toolchains")
+native.genrule() is sometimes used to copy files (often wishing to rename them).
+The 'copy_file' rule does this with a simpler interface than genrule.
 
-def bazel_skylib_workspace():
-    """Registers toolchains and declares repository dependencies of the bazel_skylib repository."""
-    register_unittest_toolchains()
+The rule uses a Bash command on Linux/macOS/non-Windows, and a cmd.exe command
+on Windows (no Bash is required).
+"""
+
+load(
+    "//rules/private:copy_file_private.bzl",
+    _copy_file = "copy_file",
+)
+
+copy_file = _copy_file

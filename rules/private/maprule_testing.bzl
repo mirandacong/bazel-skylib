@@ -12,10 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Dependency registration helpers for repositories which need to load bazel-skylib."""
+"""Maprule implementation in Starlark.
 
-load("@bazel_skylib//lib:unittest.bzl", "register_unittest_toolchains")
+This module exports:
 
-def bazel_skylib_workspace():
-    """Registers toolchains and declares repository dependencies of the bazel_skylib repository."""
-    register_unittest_toolchains()
+This module exports the maprule_testing struct. This should only be used by maprule's own unittests.
+"""
+
+load(":maprule_private.bzl", _maprule_testing = "maprule_testing")
+
+maprule_testing = _maprule_testing
